@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>REGISTER</title>
+	<meta name="description" content="The HTML5 Herald">
+	<meta name="author" content="SitePoint">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>
+		*{ margin: 0; padding: 0; }
+
+		html{ scroll-behavior: smooth; }
+
+		:root{ --navbar-height: 59px; }
+
+		#navbar{
+		    display: flex; height: 70px;
+		    align-items: center; top: 0px; }
+
+		#navbar::before{
+		    content: "";
+		    background-color: #34DBBE;
+		    position: absolute;
+		    top:0px;
+		    left:0px;
+		    height: 70px;
+		    width:100%;
+		    z-index: -1;
+		    opacity: 0.8; }
+
+		#logo{ margin: 10px 34px; }
+
+		#logo img{ height: 59px; margin: 3px 6px; }
+
+		#navbar ul{ display: flex; font-weight: bold; }
+
+		#navbar ul li{  list-style: none; font-size: 1.3rem; }
+
+		#navbar > ul li a ,#navbar > button{ color:#34495E; display: block; font-style: italic;
+		    padding: 3px 22px; border-radius: 15px; text-decoration: none; }
+
+		#navbar ul li a:hover{ color: black; background-color: white; }
+
+		#bt{ cursor: pointer;  }
+
+		#question{ border  : 0px solid black; margin : 10px; margin-left : 40px; 
+			padding:5px; margin-right : 40px;
+			display: flex; align-items: center; flex-direction: column; }
+
+		#question-btn{ width : 50%;	padding : 10px;  font-size: 18px;
+			background-color: white; margin-top : 20px; margin-bottom: 5px;
+			color: black; border: 2px solid #008CBA; cursor: pointer; }
+
+		#question-btn:hover{
+			background-color: #008CBA; color: white; }
+		#question label {
+		background-color: #34ACDB; color: white; padding: 0.5rem;
+		font-family: sans-serif; border-radius: 0.3rem;
+		cursor: pointer; margin-top: 1rem; 
+		width : 40%; text-align: center;  transition: width 0.5s; opacity: 0.8; }
+
+		#file-chosen{ margin-left: 0.3rem; font-family: sans-serif;
+			margin-top: 5px; margin-bottom: 5px; display: none;}
+
+		#question label:hover{ opacity: 1; width: 48%; }
+	
+		#question textarea {
+			width: 50%; height: 100px; padding: 12px 20px; box-sizing: border-box;
+			border: 2px solid #black; margin: 10px; border-radius: 5px; transition: width 0.5s;
+			background-color: #f8f8f8; font-size: 16px; resize: none; }
+		
+		#question textarea:hover{  width : 60%;  }
+
+		#head {color: #346BDB; margin: 10px;  padding : 10px; font-family: sans-serif;  }
+
+		#error-msg{display: none; color : red;}
+
+		#container{
+			margin: 10px;
+			/*border : 1px solid black;*/
+		}
+
+		.user_name{margin-bottom : 5px; margin-top: 10px;
+			font-size: 18px; font-style: italic; }
+		
+
+		.body_quest{margin-left : 20px; font-size: 18px; }
+		
+		.rate_btn { background-color: DodgerBlue; border: none; color: white;margin-top: 10px; 
+		padding: 8px 13px; font-size: 12px; cursor: pointer; margin-left : 8px; margin-right: 8px; }
+		
+		.rate_btn:hover { background-color: RoyalBlue; }
+
+		.count{ font-weight: bold; font-size: 18px; }
+
+		.answers{ margin-left : 50px; margin-top : 15px;  display: none; }
+
+		.link-ans{ color : blue; cursor: pointer; margin-left: 20px;  }
+
+	</style>
+</head>
+
+<body>
+	<nav id="navbar">
+		<ul>
+			<li class="item"><a >Questionire.com</a></li>
+			<li class="item"><a >Howdy! {{user_name}}</a></li>
+			<li class="item"><a onclick='logout()' id = 'bt'>Logout</a></li>
+		</ul>
+		<div id="logo">
+			<img src="" alt="MyOnlineMeal.com">
+		</div>
+	</nav>
+	<div id = 'question'>
+		<h2 style = 'color : #8334DB; ' ><strong>Ask a Question</strong></h2>
+		<textarea id='main-quest' placeholder="Type your question"></textarea>
+		<span id='error-msg'>Kindly Enter some question to post</span>
+
+		<label for="actual-btn">Choose File</label>
+		<input type="file" id="actual-btn" hidden/>
+		<span id="file-chosen">No file chosen</span>
+
+		<button id='question-btn' onclick="post_question()" >Post Question</button>
+
+	</div>
+	<h2 id='head'>Queries</h2>
+
+
+	<div id = 'container'>
+
+		{% for obj in all_quest %}
+			<div class = 'user_name'><strong>{{obj.0}}</strong></div>
+			<div class = 'body_quest'>
+				<button class="rate_btn" onclick="rate_me('up' , '{{obj.3}}' , 'count-{{obj.3}}' )" >
+					UP</button>
+				<span id= "count-{{obj.3}}" class = 'count' >{{obj.2}}</span>
+				<button class="rate_btn" onclick="rate_me('down' , '{{obj.3}}' ,'count-{{obj.3}}' )" >	Down</button>
+				<span><strong style = 'margin-right:5px;'>Q.{{obj.3}}</strong>{{obj.1}}</span>
+				<a id='link-{{obj.3}}' class = 'link-ans' onclick='show_ans("ans-{{obj.3}}", "link-{{obj.3}}" )'>
+					show replies
+				</a>
+				<a class='link-ans' onclick="reply_ques( '{{obj.3}}'  )" >Comment</a>
+				<div id = 'ans-{{obj.3}}' class = 'answers'>
+					<div>This is template area for answers</div>
+				</div>
+			</div>
+
+		{% endfor %}
+	</div>
+
+	<div>
+		{% for j in example.values %}
+			{{j.0}}
+			<br>
+		{% endfor %}
+	</div>
+
+
+	<script>
+		const actualBtn = document.getElementById('actual-btn');
+		const fileChosen = document.getElementById('file-chosen');
+		actualBtn.addEventListener('change', function(){
+			fileChosen.style.display = 'block';
+			fileChosen.textContent = this.files[0].name } )
+
+
+		let reply_ques = function (id_) {
+			location.replace(`/query_ans/${id_}` )  }
+
+		let show_ans = function(id , id_2) {
+			let ele = document.getElementById(id);
+			let ele_2 = document.getElementById(id_2)
+			if (ele.style.display == 'block'){
+				ele.style.display = ''; ele_2.textContent = 'show replies'; }
+			
+			else if(ele.style.display == '') {
+				ele.style.display = 'block'; ele_2.textContent = 'hide replies'; } 
+			};
+
+		let rate_me = function (action , body , id) {
+			ele = document.getElementById(id);
+			let pre_val = 0;
+			if(action == 'up'){ pre_val = parseInt(ele.textContent) + 1 }
+			else if (action == 'down'){ pre_val = parseInt(ele.textContent) - 1}
+			let param = `body=${body}&count=${pre_val}`;	
+			xhr_obj = new XMLHttpRequest();
+
+			xhr_obj.onload = function(){
+				let res = JSON.parse(this.responseText );
+				if (res['sucess'] == true){ ele.textContent = pre_val }
+				else{ return null; } };
+			xhr_obj.open('PUT' , '' , true);
+			xhr_obj.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			xhr_obj.send( param ); }
+
+	
+		let post_question = function () {
+			let quest = document.getElementById('main-quest');
+			let file_path = document.getElementById('actual-btn').value;
+			let file_path_text = document.getElementById('file-chosen');
+			if (quest.value != ''){
+				let param = `body=${quest.value}&file_path=${file_path}`
+				xhr_obj = new XMLHttpRequest();
+				xhr_obj.onload = function(){ 
+					console.log(this.response);
+					
+					// This is not efficint way to do it
+					// It is just a demo so i didnt put any effort to make childnodes
+					// it should be done by creating new elements and appending them to parent
+					location.replace('/'); 
+					// Later on i will change it for now just keep things simple
+					// Same logic should be extended in the query.html file
+
+
+
+					document.getElementById('error-msg').style.display = 'none';
+					quest.value = ''; file_path_text.style.display = 'none'; }
+				
+				xhr_obj.open('POST', ''  ,true ); 
+				xhr_obj.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				xhr_obj.send( param );  }
+			
+			else{ document.getElementById('error-msg').style.display = 'block'; } };
+
+		let logout = function(){
+			let ask_user = confirm('Do yu want to logout ?');
+			if(ask_user == true){
+				xhr_obj = new XMLHttpRequest();
+				param = 'flag=logout';
+				xhr_obj.onload = function(){ location.replace( '/' ); }
+				xhr_obj.open('POST', ''  ,true ); 
+				xhr_obj.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				xhr_obj.send( param );   }
+			else{ return null; } };
+	
+	</script>
+</body>
+</html>

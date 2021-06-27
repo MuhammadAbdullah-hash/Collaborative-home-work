@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>REGISTER</title>
+	<meta name="description" content="The HTML5 Herald">
+	<meta name="author" content="SitePoint">
+	<style>
+		*{ margin: 0px ; padding: 0px;}
+		button{
+			cursor: pointer; margin: 10px; 
+			background-color: #4CAF50;border: none;
+			color: white; padding: 16px 32px;
+			text-align: center; text-decoration: none;
+			display: block; font-size: 16px; margin: 4px 2px;
+			transition-duration: 0.4s; cursor: pointer; }
+		#head{
+			background-color: purple;
+			color : white; display: flex;
+			position: relative; height: 180px; margin-bottom: 30px;
+			flex-direction: row; align-items: flex-end; }
+	
+		#head > h2{
+			margin: 10px; padding : 10px;
+			font-weight: bold; }
+	
+		#form-creds{
+			margin: auto; width: 40%; padding: 15px; 
+			border: 1px solid black;}
+	
+		#my-form{
+			display: flex; flex-direction: column; }
+	
+		#form-creds input{
+			padding: 10px; margin: 10px;
+			border: none; border-bottom: 1px solid black;
+			font-size: 18px; }
+	
+		#form-creds input:focus{
+			outline: none; font-size: 20px; border-bottom: 2px solid red; }
+		#my-form button{
+			padding : 10px;  font-size: 18px;
+			background-color: white;
+			margin-top : 30px; margin-bottom: 8px;  color: black; 
+			border: 2px solid #008CBA;}
+		#my-form button:hover{
+			background-color: #008CBA; color: white; }
+		#form-creds div{
+			margin-top : 20px; margin-bottom: 10px;
+			margin-right: 3px; }
+		#signup{
+			padding : 10px;  font-size: 18px;
+			width: 100%; border: 2px solid #008CBA;
+			background-color: white;  color: black;  }
+		#signup:hover{
+			background-color: #008CBA; color: white; }
+		#form-creds a {
+			text-decoration: none; color : black; }
+
+	</style>
+</head>
+
+<body>
+	<div id = 'head'>
+		<h2><strong>Home Work Form - Create new account</strong></h2>
+	</div>
+
+	<div id = 'form-creds'>
+		<div id ='my-form' >	
+			<span id="error-user"></span>	
+			<input type="text" id ='username' name="username" placeholder="Username" required>
+			<input type="text" id = 'pass' name="pass" placeholder="Password" required>
+			<span id="error-pass"></span>	
+			<input type="text" id = 'conf-pass' name="conf-pass" placeholder="Confirm password" required>
+			<button onclick="check()">Sign Up</button>
+		</div>
+		<div><a href = '/'><button id='signup'>Back to login</button></a></div>
+	</div>
+
+	<script>
+		let check = function(){
+			let user = document.getElementById('username').value;
+			let pass = document.getElementById('pass').value;
+			let conf_pass = document.getElementById('conf-pass').value;
+			let ele = document.getElementById('error-pass');
+			let ele_2 = document.getElementById('error-user');
+
+			if (pass != conf_pass){
+				ele.style.color = 'red';
+				ele.innerHTML = "passwords doesnt match !"; }
+			else{
+				ele.innerHTML = ''; 
+	
+				let param = `username=${user}&pass=${pass}&conf-pass=${conf_pass}` ;
+				
+				xhr_obj = new XMLHttpRequest();
+				xhr_obj.onload = function(){
+					let msg = JSON.parse( this.response );
+					if (msg['flag'] == true){
+						alert(msg['msg']); 
+						location.replace("/"); }
+					else{
+						ele_2.style.color = 'red';
+						ele_2.innerHTML = 'Username already taken !' }  }
+
+				xhr_obj.open('POST', ''  ,true ); 
+				xhr_obj.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				xhr_obj.send( param );  }
+		};
+
+	</script>
+</body>
+</html>

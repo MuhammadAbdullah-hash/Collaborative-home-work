@@ -28,10 +28,11 @@ python manage.py runserver
 It will give you a local url with which you can navigate to website
 
 ## Samples
+  # Signup Page
 ![Screenshot](PROJECT-SAMPLES/SIGNUP-PAGE.png)
-
+  # Login Page
 ![Screenshot](PROJECT-SAMPLES/LOGIN-PAGE.png)
-
+  # Home Page
 ![Screenshot](PROJECT-SAMPLES/HOME-PAGE.png)
 
 

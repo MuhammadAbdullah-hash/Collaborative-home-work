@@ -26,6 +26,15 @@ Type following command in cmd
 python manage.py runserver
 ```
 It will give you a local url with which you can navigate to website
+
+## Samples
+![Screenshot](https://github.com/MuhammadAbdullah-hash/Collaborative-home-work/PROJECT-SAMPLES/SIGNUP-PAGE.png)
+
+![Screenshot](https://github.com/MuhammadAbdullah-hash/Collaborative-home-work/PROJECT-SAMPLES/LOGIN-PAGE.png)
+
+![Screenshot](https://github.com/MuhammadAbdullah-hash/Collaborative-home-work/PROJECT-SAMPLES/HOME-PAGE.png)
+
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 

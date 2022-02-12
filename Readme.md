@@ -30,9 +30,9 @@ It will give you a local url with which you can navigate to website
 ## Samples
 ![Screenshot](PROJECT-SAMPLES/SIGNUP-PAGE.png)
 
-![Screenshot](https://github.com/MuhammadAbdullah-hash/Collaborative-home-work/PROJECT-SAMPLES/LOGIN-PAGE.png)
+![Screenshot](PROJECT-SAMPLES/LOGIN-PAGE.png)
 
-![Screenshot](https://github.com/MuhammadAbdullah-hash/Collaborative-home-work/PROJECT-SAMPLES/HOME-PAGE.png)
+![Screenshot](PROJECT-SAMPLES/HOME-PAGE.png)
 
 
 ## Contributing

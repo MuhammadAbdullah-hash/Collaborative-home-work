@@ -28,7 +28,7 @@ python manage.py runserver
 It will give you a local url with which you can navigate to website
 
 ## Samples
-![Screenshot](https://github.com/MuhammadAbdullah-hash/Collaborative-home-work/PROJECT-SAMPLES/SIGNUP-PAGE.png)
+![Screenshot](PROJECT-SAMPLES/SIGNUP-PAGE.png)
 
 ![Screenshot](https://github.com/MuhammadAbdullah-hash/Collaborative-home-work/PROJECT-SAMPLES/LOGIN-PAGE.png)
 
